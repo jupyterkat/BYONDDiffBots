@@ -87,8 +87,8 @@ async fn garbage_collect_all_repos() {
 
     if let Err(e) = output {
         let fuckup = match e.try_into_panic() {
-            Ok(panic) => {
-                format!("{panic:#?}")
+            Ok(_) => {
+                format!("Task panicked!")
             }
             Err(e) => e.to_string(),
         };
@@ -137,8 +137,8 @@ async fn job_handler(name: &str, job: Job, blob_client: Azure) {
 
     if let Err(e) = output {
         let fuckup = match e.try_into_panic() {
-            Ok(panic) => {
-                format!("{panic:#?}")
+            Ok(_) => {
+                format!("Task panicked!")
             }
             Err(e) => e.to_string(),
         };

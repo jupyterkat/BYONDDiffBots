@@ -51,8 +51,8 @@ async fn job_handler(name: &str, job: Job) {
 
     if let Err(e) = output {
         let fuckup = match e.try_into_panic() {
-            Ok(panic) => {
-                format!("{panic:#?}")
+            Ok(_) => {
+                format!("Task panicked!")
             }
             Err(e) => e.to_string(),
         };

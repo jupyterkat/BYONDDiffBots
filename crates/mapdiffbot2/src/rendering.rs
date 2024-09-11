@@ -571,14 +571,14 @@ fn encode_image<W: std::io::Write>(write_to: &mut W, image: &image::RgbaImage) -
             image.as_bytes(),
             image.width(),
             image.height(),
-            image::ColorType::Rgba8,
+            image::ColorType::Rgba8.into(),
         )
         .wrap_err("Failed to encode image")?;
     Ok(())
 }
 
 fn decode_image(bytes: &[u8]) -> Result<image::RgbaImage> {
-    let image = image::io::Reader::new(std::io::Cursor::new(bytes))
+    let image = image::ImageReader::new(std::io::Cursor::new(bytes))
         .with_guessed_format()
         .wrap_err("Failed to guess image format")?
         .decode()

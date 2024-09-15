@@ -119,7 +119,10 @@ async fn main() -> eyre::Result<()> {
 
     let (layer, tasks) = if let Some(ref loki_config) = config.grafana_loki {
         let (layer, tasks) = tracing_loki::builder()
-            .build_url(tracing_loki::url::Url::parse(&loki_config.url).unwrap())?;
+            .extra_field("App Name", "icondiffbot2")
+            .unwrap()
+            .build_url(tracing_loki::url::Url::parse(&loki_config.url).unwrap())
+            .expect("cannot connect to grafana loki");
         (Some(layer), Some(tasks))
     } else {
         (None, None)
